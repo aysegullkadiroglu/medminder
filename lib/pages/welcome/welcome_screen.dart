@@ -1,8 +1,6 @@
-import 'package:final_bim494_project/pages/widget/header_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../common/theme_util.dart';
-import 'login_page.dart';
+import '../../style/styles.dart';
+import '../pages.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

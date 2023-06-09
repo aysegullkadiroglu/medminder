@@ -1,10 +1,8 @@
-import 'package:final_bim494_project/common/theme_util.dart';
-import 'package:final_bim494_project/pages/widget/header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../common/theme_helper.dart';
+import '../../style/styles.dart';
+import '../pages.dart';
 
 class RegistrationPage extends  StatefulWidget{
   @override

@@ -1,12 +1,7 @@
-import 'package:final_bim494_project/pages/profile_page.dart';
-import 'package:final_bim494_project/pages/registration_page.dart';
-import 'package:final_bim494_project/pages/widget/header_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import '../common/theme_helper.dart';
-import '../common/theme_util.dart';
-import 'forgot_password.dart';
+import '../../style/styles.dart';
+import '../pages.dart';
 
 class LoginPage extends StatefulWidget{
   const LoginPage({Key? key}): super(key:key);

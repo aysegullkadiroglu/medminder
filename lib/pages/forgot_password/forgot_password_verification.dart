@@ -1,11 +1,9 @@
-import 'package:final_bim494_project/pages/widget/header_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
-
-import '../common/theme_helper.dart';
-import '../common/theme_util.dart';
+import '../../style/styles.dart';
+import '../pages.dart';
 
 class ForgotPasswordVerificationPage extends StatefulWidget {
   const ForgotPasswordVerificationPage({Key? key}) : super(key: key);

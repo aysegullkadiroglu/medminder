@@ -1,11 +1,7 @@
-import 'package:final_bim494_project/pages/widget/header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'forgot_password.dart';
-import 'forgot_password_verification.dart';
-import 'login_page.dart';
-import 'registration_page.dart';
+import '../../style/styles.dart';
+import '../pages.dart';
 
 class ProfilePage extends StatefulWidget{
 

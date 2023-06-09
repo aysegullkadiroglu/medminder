@@ -1,11 +1,7 @@
-import 'package:final_bim494_project/pages/widget/header_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import '../common/theme_helper.dart';
-import '../common/theme_util.dart';
-import 'forgot_password_verification.dart';
-import 'login_page.dart';
+import '../../style/styles.dart';
+import '../pages.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);

@@ -1,6 +1,5 @@
-import 'package:final_bim494_project/pages/profile_page.dart';
-import 'package:final_bim494_project/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'pages/pages.dart';
 
 void main() {
   runApp(const MedminderApp());

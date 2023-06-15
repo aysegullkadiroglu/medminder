@@ -1,7 +1,12 @@
+import 'package:final_bim494_project/pages/medicine_page.dart';
+import 'package:final_bim494_project/pages/registration_page.dart';
+import 'package:final_bim494_project/pages/widget/header_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../../style/styles.dart';
-import '../pages.dart';
+
+import '../commons/theme_helper.dart';
+import '../commons/theme_util.dart';
+import 'forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget{
   const LoginPage({Key? key}): super(key:key);
@@ -53,25 +58,28 @@ class _LoginPageState extends State<LoginPage>{
                               child: Column(
                                 children: [
                                   Container(
-                                    child: TextField(
-                                      decoration:
-                                      ThemeHelper().textInputDecoration(
-                                          'User Name',
-                                          'Enter your user name'),
+                                    child: TextFormField(
+                                      decoration: ThemeHelper().textInputDecoration(
+                                          'Email',
+                                          'Enter your email'),
+
                                     ),
-                                    decoration:
-                                    ThemeHelper().inputBoxDecorationShadow(),
+                                    decoration: ThemeHelper().inputBoxDecorationShadow(),
                                   ),
                                   SizedBox(height: 30.0),
                                   Container(
-                                    child: TextField(
+                                    child: TextFormField(
                                       obscureText: true,
-                                      decoration:
-                                      ThemeHelper().textInputDecoration(
-                                          'Password', 'Enter your password'),
+                                      decoration: ThemeHelper().textInputDecoration(
+                                          "Password", "Enter your password"),
+                                      validator: (val) {
+                                        if (val!.isEmpty) {
+                                          return "Please enter your password";
+                                        }
+                                        return null;
+                                      },
                                     ),
-                                    decoration:
-                                    ThemeHelper().inputBoxDecorationShadow(),
+                                    decoration: ThemeHelper().inputBoxDecorationShadow(),
                                   ),
                                   SizedBox(height: 15.0),
                                   Container(
@@ -116,7 +124,7 @@ class _LoginPageState extends State<LoginPage>{
                                         Navigator.pushReplacement(context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ProfilePage()));
+                                                    NavigationBarPage()));
 
                                       },
                                     ),

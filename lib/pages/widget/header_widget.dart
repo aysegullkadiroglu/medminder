@@ -1,8 +1,8 @@
-// This widget will draw header section of all page.
+// This widget will draw header section of all page
 
 import 'package:flutter/material.dart';
 
-import '../../style/theme/theme_util.dart';
+import '../../commons/theme_util.dart';
 
 class HeaderWidget extends StatefulWidget {
   final double _height;

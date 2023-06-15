@@ -1,7 +1,11 @@
+import 'package:final_bim494_project/pages/widget/header_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../../style/styles.dart';
-import '../pages.dart';
+
+import '../commons/theme_helper.dart';
+import '../commons/theme_util.dart';
+import 'forgot_password_verification.dart';
+import 'login_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -32,11 +36,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     double _headerHeight = 300;
-    Color buttonColor = _isButtonClicked
-        ? ThemeUtil.fourthColor : ThemeUtil.thirdColor;
 
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: ThemeUtil.whiteColor,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -93,7 +95,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                   if(val!.isEmpty) {
                                     return "Email can't be empty";
                                   }
-                                  else if(!RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)){
+                                  else if(!RegExp(r"^[a-zA-Z\d.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z\d](?:[a-zA-Z\d-]{0,253}[a-zA-Z\d])?(?:\.[a-zA-Z\d](?:[a-zA-Z\d-]{0,253}[a-zA-Z\d])?)*$").hasMatch(val)){
                                     return "Enter a valid email address";
                                   }
                                   return null;

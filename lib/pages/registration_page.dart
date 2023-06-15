@@ -1,28 +1,33 @@
+import 'package:final_bim494_project/models/gender.dart';
+import 'package:final_bim494_project/pages/profile_page.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../style/styles.dart';
-import '../pages.dart';
 
-class RegistrationPage extends  StatefulWidget{
+import '../commons/theme_helper.dart';
+import '../commons/theme_util.dart';
+import '../pages/widget/header_widget.dart';
+
+class RegistrationPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _RegistrationPageState();
   }
 }
 
-class _RegistrationPageState extends State<RegistrationPage>{
-
+class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
+  late  Future<void> registerUser;
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _ageController = TextEditingController();
   bool checkedValue = false;
   bool checkboxValue = false;
-  String? selectedGender;
+  Gender? selectedGender;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ThemeUtil.whiteColor,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -48,9 +53,10 @@ class _RegistrationPageState extends State<RegistrationPage>{
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   border: Border.all(
-                                      width: 5,
-                                      color: Colors.white),
-                                  color: Colors.white,
+                                    width: 5,
+                                    color: ThemeUtil.whiteColor,
+                                  ),
+                                  color: ThemeUtil.whiteColor,
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black12,
@@ -67,46 +73,73 @@ class _RegistrationPageState extends State<RegistrationPage>{
                               ),
                               Container(
                                 padding: EdgeInsets.fromLTRB(80, 80, 0, 0),
-                                  child: Icon(
-                                    Icons.add_circle,
-                                    color: Colors.grey.shade700,
-                                    size: 25.0,
-                                  ),
+                                child: Icon(
+                                  Icons.add_circle,
+                                  color: Colors.grey.shade700,
+                                  size: 25.0,
                                 ),
-                             ],
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(height: 30),
                         Container(
                           child: TextFormField(
+                            controller: _nameController,
                             decoration: ThemeHelper().textInputDecoration(
-                                'First Name',
-                                'Enter your first name',),
+                              'Name Surname',
+                              'Enter your first name',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your name';
+                              }
+                              return null;
+                            },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShadow(),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(height: 20),
                         Container(
                           child: TextFormField(
+                            controller: _emailController,
                             decoration: ThemeHelper().textInputDecoration(
-                                'Last Name',
-                                'Enter your last name'),
+                              'Email',
+                              'Enter your email',
+                            ),
+                            validator: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !value.contains('@') ||
+                                  !value.contains('.')) {
+                                return 'Invalid Email';
+                              }
+                              return null;
+                            },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShadow(),
                         ),
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
+                            controller: _ageController,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Age",
-                                "Enter your age"),
+                              "Age",
+                              "Enter your age",
+                            ),
                             keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please enter your age";
+                              }
+                              return null;
+                            },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShadow(),
                         ),
                         SizedBox(height: 20.0),
                         Container(
-                          child: DropdownButtonFormField<String>(
+                          child: DropdownButtonFormField<Gender>(
                             decoration: ThemeHelper().textInputDecoration(
                               "Gender",
                               "Select your gender",
@@ -114,12 +147,16 @@ class _RegistrationPageState extends State<RegistrationPage>{
                             value: selectedGender,
                             items: [
                               DropdownMenuItem(
-                                value: "Female",
-                                child: Text("Female"),
+                                value: Gender.FEMALE,
+                                child: Text('Female'),
                               ),
                               DropdownMenuItem(
-                                value: "Male",
-                                child: Text("Male"),
+                                value: Gender.MALE,
+                                child: Text('Male'),
+                              ),
+                              DropdownMenuItem(
+                                value: Gender.OTHER,
+                                child: Text('Other'),
                               ),
                             ],
                             onChanged: (value) {
@@ -128,7 +165,7 @@ class _RegistrationPageState extends State<RegistrationPage>{
                               });
                             },
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
+                              if (value == null) {
                                 return "Please select your gender";
                               }
                               return null;
@@ -136,16 +173,35 @@ class _RegistrationPageState extends State<RegistrationPage>{
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShadow(),
                         ),
-
+                        SizedBox(height: 20.0),
+                        Container(
+                          child: TextFormField(
+                            controller: _passwordController,
+                            obscureText: true,
+                            decoration: ThemeHelper().textInputDecoration(
+                              "Password",
+                              "Enter your password",
+                            ),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return "Please enter your password";
+                              }
+                              return null;
+                            },
+                          ),
+                          decoration: ThemeHelper().inputBoxDecorationShadow(),
+                        ),
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Password", "Enter your password"),
+                              "Re-enter password",
+                              "Enter your password again",
+                            ),
                             validator: (val) {
                               if (val!.isEmpty) {
-                                return "Please enter your password";
+                                return "Please enter your password again";
                               }
                               return null;
                             },
@@ -164,17 +220,18 @@ class _RegistrationPageState extends State<RegistrationPage>{
                                       child: Theme(
                                         data: Theme.of(context).copyWith(
                                           checkboxTheme: CheckboxThemeData(
-                                            fillColor: MaterialStateColor.resolveWith((states) {
-                                              if (states.contains(MaterialState.selected)) {
+                                            fillColor: MaterialStateColor.resolveWith(
+                                                  (states) {
+                                                if (states.contains(MaterialState.selected)) {
+                                                  return ThemeUtil.fourthColor;
+                                                }
                                                 return ThemeUtil.fourthColor;
-                                              }
-                                              return Theme.of(context).canvasColor;
-                                            }),
+                                              },
+                                            ),
                                           ),
                                         ),
                                         child: Checkbox(
                                           value: checkboxValue,
-
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(5.0),
@@ -189,9 +246,12 @@ class _RegistrationPageState extends State<RegistrationPage>{
                                         ),
                                       ),
                                     ),
-                                    Text("I accept all terms and conditions.",
+                                    Text(
+                                      "I accept all terms and conditions.",
                                       style: TextStyle(
-                                          color: ThemeUtil.blackColor,),),
+                                        color: ThemeUtil.blackColor,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Container(
@@ -201,9 +261,10 @@ class _RegistrationPageState extends State<RegistrationPage>{
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Theme.of(context).colorScheme.error,
-                                      fontSize: 12,),
+                                      fontSize: 12,
+                                    ),
                                   ),
-                                )
+                                ),
                               ],
                             );
                           },
@@ -232,97 +293,26 @@ class _RegistrationPageState extends State<RegistrationPage>{
                               ),
                             ),
                             onPressed: () {
-                              /*
                               if (_formKey.currentState!.validate()) {
+                                // Kayıt işlemini burada gerçekleştirin
+                                // _nameController.text kullanıcı adını,
+                                // _emailController.text e-posta adresini,
+                                // _passwordController.text şifreyi,
+                                // _ageController.text yaş bilgisini,
+                                // selectedGender cinsiyeti içerir.
+                                registerUser;
+
                                 Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfilePage()
-                                    ),
-                                        (Route<dynamic> route) => false
+                                  MaterialPageRoute(
+                                    builder: (context) => ProfilePage(),
+                                  ),
+                                      (Route<dynamic> route) => false,
                                 );
                               }
-
-                               */
                             },
                           ),
                         ),
                         SizedBox(height: 30.0),
-                        Text("Or make account using social media",
-                          style: TextStyle(
-                              color: ThemeUtil.blackColor,),),
-                        SizedBox(height: 25.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              child: FaIcon(
-                                FontAwesomeIcons.googlePlus,
-                                size: 35,
-                                color: HexColor("#EC2D2F"),),
-                              onTap: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ThemeHelper().alertDialog(
-                                          "Google Plus",
-                                          "You tap on GooglePlus social icon.",
-                                          context);
-                                    },
-                                  );
-                                });
-                              },
-                            ),
-                            SizedBox(width: 30.0,),
-                            GestureDetector(
-                              child: Container(
-                                padding: EdgeInsets.all(0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                      width: 5,
-                                      color: HexColor("#40ABF0")),
-                                  color: HexColor("#40ABF0"),
-                                ),
-                                child: FaIcon(
-                                  FontAwesomeIcons.twitter, size: 23,
-                                  color: HexColor("#FFFFFF"),),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ThemeHelper().alertDialog(
-                                          "Twitter",
-                                          "You tap on Twitter social icon.",
-                                          context);
-                                    },
-                                  );
-                                });
-                              },
-                            ),
-                            SizedBox(width: 30.0,),
-                            GestureDetector(
-                              child: FaIcon(
-                                FontAwesomeIcons.facebook, size: 35,
-                                color: HexColor("#3E529C"),),
-                              onTap: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ThemeHelper().alertDialog(
-                                          "Facebook",
-                                          "You tap on Facebook social icon.",
-                                          context);
-                                    },
-                                  );
-                                });
-                              },
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -334,5 +324,4 @@ class _RegistrationPageState extends State<RegistrationPage>{
       ),
     );
   }
-
 }

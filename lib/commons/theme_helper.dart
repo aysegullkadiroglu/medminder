@@ -1,6 +1,6 @@
+import 'package:final_bim494_project/commons/theme_util.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'theme_util.dart';
 
 class ThemeHelper{
 
@@ -50,7 +50,7 @@ class ThemeHelper{
   BoxDecoration buttonBoxDecoration(BuildContext context,
       [String color1 = "", String color2 = ""]) {
     Color c1 = ThemeUtil.thirdColor;
-    Color c2 = Theme.of(context).accentColor;
+    Color c2 = Theme.of(context).colorScheme.secondary;
     if (color1.isEmpty == false) {
       c1 = HexColor(color1);
     }
